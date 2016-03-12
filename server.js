@@ -7,6 +7,7 @@ var jade = require('jade');
 var app = express();
 var CONFIG = require('./config.json');
 var user = CONFIG;
+var moment = require('moment');
 
 app.set('view engine', 'jade');
 app.set('views', path.resolve(__dirname, 'views'));
@@ -22,10 +23,10 @@ app.get('/', function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-   var user = {
+    user = {
     name:     CONFIG.name,
     phone:    CONFIG.phone,
-    carrier:  CONFIG.carrier
+    subject:  CONFIG.subject
   };
   res.render('admin', user);
 });
@@ -34,7 +35,7 @@ app.post('/', function (req, res) {
   user = {
     name: req.body.name,
     phone: req.body.phone,
-    carrier: req.body.carrier
+    subject: req.body.subject
  };
   
   res.render('admin', user);
@@ -52,8 +53,8 @@ app.post('/message', function (req, res) {
     // to: '8087814110@vzwpix.com',
     // to: '18083873284@tmomail.net',
     // to: '8087814110@vtext.com',
-    subject: 'Hello',
-    text: 'Someone is at your door',
+    subject: user.subject,
+    text: moment().format('MMMM Do YYYY, h:mm:ss a'),
     attachment: filepath
 
   };

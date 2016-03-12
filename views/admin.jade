@@ -1,4 +1,5 @@
 extends ./layout.jade
+
 block content
   h3 Name:
   p #{name}
@@ -6,8 +7,8 @@ block content
   h3 Phone:
   p #{phone}
 
-  h3 Carrier:
-  p #{carrier}
+  h3 Subject:
+  p #{subject}
 
   form(action="/admin", method="POST")
     button(type="submit") change user
