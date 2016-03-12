@@ -1,0 +1,13 @@
+extends ./layout.jade
+block content
+  h3 Name:
+  p #{name}
+
+  h3 Phone:
+  p #{phone}
+
+  h3 Carrier:
+  p #{carrier}
+
+  form(action="/admin", method="POST")
+    button(type="submit") change user
