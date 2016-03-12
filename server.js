@@ -6,6 +6,7 @@ var filepath = path.join(__dirname, 'IMG_1534.JPG');
 var jade = require('jade');
 var app = express();
 var CONFIG = require('./config.json');
+var user = CONFIG;
 
 app.set('view engine', 'jade');
 app.set('views', path.resolve(__dirname, 'views'));
@@ -21,19 +22,22 @@ app.get('/', function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-   var locals = {
+   var user = {
     name:     CONFIG.name,
     phone:    CONFIG.phone,
     carrier:  CONFIG.carrier
   };
-  res.render('admin', locals);
+  res.render('admin', user);
 });
 
 app.post('/', function (req, res) {
- 
-
-  console.log(guest);
-  res.render('admin');
+  user = {
+    name: req.body.name,
+    phone: req.body.phone,
+    carrier: req.body.carrier
+ };
+  
+  res.render('admin', user);
 });
 
 app.post('/admin', function (req, res) {
@@ -44,7 +48,7 @@ app.post('/message', function (req, res) {
   var data = {
     from: 'Excited User <me@samples.mailgun.org>',
     // to: '18084998616@messaging.sprintpcs.com',
-    to: '8083543054@mms.att.net', //att
+    to: user.phone + '@mms.att.net', //att
     // to: '8087814110@vzwpix.com',
     // to: '18083873284@tmomail.net',
     // to: '8087814110@vtext.com',
